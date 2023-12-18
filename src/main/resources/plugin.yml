@@ -1,0 +1,7 @@
+name: SpigotAPI
+version: 1.2.5
+main: de.ybeta.spigotapi.SpigotPlugin
+api-version: '1.20'
+load: STARTUP
+authors: [yBeta]
+description: Core API
