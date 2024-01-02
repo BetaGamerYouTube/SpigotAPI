@@ -4,7 +4,7 @@
   <groupId>de.ybeta</groupId>
   <artifactId>spigotapi</artifactId>
   <name>SpigotAPI</name>
-  <version>1.2.5</version>
+  <version>1.2.7</version>
   <description>Core API</description>
   <build>
     <resources>
