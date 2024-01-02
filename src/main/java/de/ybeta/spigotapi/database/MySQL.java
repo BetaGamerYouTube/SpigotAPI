@@ -50,7 +50,7 @@ public class MySQL implements Database {
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(query);
             for (int i = 0; i < parameters.length; i++) {
-                preparedStatement.setObject(i, parameters[i]);
+                preparedStatement.setObject(i + 1, parameters[i]);
             }
             preparedStatement.execute();
         } catch (SQLException exception) {
@@ -68,7 +68,7 @@ public class MySQL implements Database {
         try {
             PreparedStatement preparedStatement = this.connection.prepareStatement(query);
             for (int i = 0; i < parameters.length; i++) {
-                preparedStatement.setObject(i, parameters[i]);
+                preparedStatement.setObject(i + 1, parameters[i]);
             }
             return preparedStatement.executeQuery();
         } catch (SQLException exception) {

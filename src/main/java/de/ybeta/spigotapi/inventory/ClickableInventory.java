@@ -14,6 +14,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -306,7 +307,7 @@ public final class ClickableInventory implements Listener {
     public void click(InventoryClickEvent click) {
         if (click.getWhoClicked() instanceof Player && click.getClickedInventory() != null && click.getClickedInventory().equals(this.inventory)) {
             ItemStack clickedItem = click.getCurrentItem();
-            if (clickedItem != null && clickedItem.getType() != null && clickedItem.getType() != Material.AIR) {
+            if (clickedItem != null && clickedItem.getType() != Material.AIR) {
                 ClickableItem item = this.items[click.getSlot()];
                 if (item == null) {
                     if (!this.editable) {
@@ -324,13 +325,20 @@ public final class ClickableInventory implements Listener {
 
                 }
             }
+        } else if (click.getWhoClicked() instanceof Player && viewers.contains((Player) click.getWhoClicked())) {
+            click.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        if (this.viewers.contains(event.getPlayer())) event.setCancelled(true);
     }
 
     @EventHandler
     public void close(InventoryCloseEvent closure) {
         HumanEntity entity = closure.getPlayer();
-        if (entity instanceof Player && closure.getInventory() != null && closure.getInventory().equals(this.inventory)) {
+        if (entity instanceof Player && closure.getInventory().equals(this.inventory)) {
             this.close((Player)entity);
         }
     }
